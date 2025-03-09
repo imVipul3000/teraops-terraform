@@ -19,3 +19,5 @@ variable "subnet_public-1" {
 variable "subnet_public_1_availability_zone" { 
  
 }
+
+variable "environment" {}
