@@ -5,7 +5,7 @@ terraform {
     bucket         = "teraops-terraform-poc"
     key            = "QA/terraform.tfstate"
     region         = "us-east-1"
-    lock_file      = true
+    use_lockfile   = true
     encrypt        = true
   }
 
