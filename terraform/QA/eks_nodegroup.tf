@@ -1,5 +1,5 @@
 module "eks_nodes" {
-  source = "../../eks/eks_nodes"
+  source = "../modules/eks/eks_nodes"
   environment = var.environment
   eks_cluster_name = module.eks.cluster_name
   subnet_private_us_east_1a = module.subnet.private_us_east_1a
