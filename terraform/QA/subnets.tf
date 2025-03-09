@@ -1,5 +1,5 @@
 module "subnet" {
-  source = "../module/networking/subnet"
+  source = "../modules/networking/subnet"
   vpc_id = module.vpc.vpc_id
   subnet_private_1_availability_zone = "eu-west-2a"
   subnet_private_2_availability_zone = "eu-west-2b"
