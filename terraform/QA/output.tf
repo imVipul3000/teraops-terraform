@@ -19,5 +19,5 @@ output "subnet_public_2_id" {
 }
 
 output "ig_id" {
-    calue = module.ig.ig
+    value = module.ig.ig
 }
