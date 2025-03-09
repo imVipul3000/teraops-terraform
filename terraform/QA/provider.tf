@@ -2,10 +2,10 @@ terraform {
   required_version = "~> 1.11"
 
   backend "s3" {
-    bucket         = "my-terraform-state-bucket"
-    key            = "QA/VPC/terraform.tfstate"
+    bucket         = "teraops-terraform-poc"
+    key            = "QA/terraform.tfstate"
     region         = "us-east-1"
-    dynamodb_table = "terraform-locks"
+    lock_file      = true
     encrypt        = true
   }
 
@@ -15,4 +15,8 @@ terraform {
       version = "~> 5.30"  # Adjust based on stability
     }
   }
+}
+
+variable "environment" {
+  default = "qa"
 }
