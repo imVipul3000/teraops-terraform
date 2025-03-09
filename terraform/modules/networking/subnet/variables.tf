@@ -12,12 +12,28 @@ variable "subnet_private_1_availability_zone" {
 
 }
 
+variable "subnet_private-2" { 
+ 
+}
+
+variable "subnet_private_2_availability_zone" { 
+ 
+}
+
 variable "subnet_public-1" { 
  
 }
 
-variable "subnet_public_1_availability_zone" { 
+variable "subnet_public-2" {
+
+}
+
+variable "subnet_public_1_availability_zone" {
+
+}
  
+variable "subnet_public_2_availability_zone" {
+
 }
 
 variable "environment" {}
