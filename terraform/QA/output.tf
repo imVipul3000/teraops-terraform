@@ -18,3 +18,6 @@ output "subnet_public_2_id" {
   value = module.subnet.public_us_east_2b
 }
 
+output "ig_id" {
+    calue = module.ig.ig
+}
