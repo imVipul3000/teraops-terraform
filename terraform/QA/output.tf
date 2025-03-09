@@ -25,3 +25,11 @@ output "ig_id" {
 output "nat_id" {
     value = module.nat.nat
 }
+
+output "route_public_id" {
+    value = module.routes.aws_route_table_public
+}
+
+output "route_private_id" {
+    value = module.routes.aws_route_table_private
+}
