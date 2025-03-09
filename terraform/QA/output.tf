@@ -33,3 +33,7 @@ output "route_public_id" {
 output "route_private_id" {
     value = module.routes.aws_route_table_private
 }
+
+output "eks_cluster" {
+  value = module.eks.cluster_name
+}
