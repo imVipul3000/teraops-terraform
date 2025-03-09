@@ -21,3 +21,7 @@ output "subnet_public_2_id" {
 output "ig_id" {
     value = module.ig.ig
 }
+
+output "nat_id" {
+    value = module.nat.nat
+}
