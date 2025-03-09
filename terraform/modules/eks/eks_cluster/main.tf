@@ -30,10 +30,10 @@ resource "aws_eks_cluster" "EKS" {
     endpoint_private_access = true
     endpoint_public_access  = false
     subnet_ids = [
-      var.subnet_private_eu_west_2a,
-      var.subnet_private_eu_west_2b,
-      var.subnet_public_eu_west_2a,
-      var.subnet_public_eu_west_2b
+      var.subnet_private_us_west_1a,
+      var.subnet_private_us_west_1b,
+      var.subnet_public_us_west_1a,
+      var.subnet_public_us_west_1b
     ]
   }
 
