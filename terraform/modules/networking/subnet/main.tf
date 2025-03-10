@@ -8,6 +8,7 @@ resource "aws_subnet" "private_us_east_1a" {
     "kubernetes.io/role/internal-elb" = "1"
     "kubernetes.io/cluster/${var.environment}" = "owned"
     "kubernetes.io/cluster/teraops-${var.environment}" = "shared"
+    "kubernetes.io/cluster/teraops-terraform-poc" = "shared"
   }
 }
 
@@ -21,6 +22,7 @@ resource "aws_subnet" "private_us_east_1b" {
     "kubernetes.io/role/internal-elb" = "1"
     "kubernetes.io/cluster/${var.environment}"      = "owned"
     "kubernetes.io/cluster/teraops-${var.environment}" = "shared"
+    "kubernetes.io/cluster/teraops-terraform-poc" = "shared"
   }
 }
 
@@ -35,6 +37,7 @@ resource "aws_subnet" "public_us_east_1a" {
     "kubernetes.io/role/elb"     = "1"
     "kubernetes.io/cluster/${var.environment}" = "owned"
     "kubernetes.io/cluster/teraops-${var.environment}" = "shared"
+    "kubernetes.io/cluster/teraops-terraform-poc" = "shared"
   }
 }
 
@@ -49,5 +52,6 @@ resource "aws_subnet" "public_us_east_1b" {
     "kubernetes.io/role/elb"     = "1"
     "kubernetes.io/cluster/${var.environment}" = "owned"
     "kubernetes.io/cluster/teraops-${var.environment}" = "shared"
+    "kubernetes.io/cluster/teraops-terraform-poc" = "shared"
   }
 }
