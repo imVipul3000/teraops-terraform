@@ -7,6 +7,8 @@ resource "aws_codeartifact_domain" "this" {
 resource "aws_codeartifact_repository" "this" {
   repository = var.repository
   domain     = var.domain
-
-  external_connections = ["public:npmjs"] # Allows fetching from npmjs.com
+  # ✅ Correct way to define external connections
+  external_connections {
+    external_connection_name = "public:npmjs"
+  }
 }
