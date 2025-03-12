@@ -3,6 +3,6 @@ resource "cloudflare_record" "alb_dns" {
   name    = "pocvipul"  # Subdomain (e.g., app.yourdomain.com)
   value   = "k8s-default-teraopsp-bb5dbc417b-vipul.us-east-1.elb.amazonaws.com"  # Your ALB's DNS name
   type    = "CNAME"
-  ttl     = 300
+  ttl     = 1
   proxied = true  # Set to false if you want direct traffic
 }
