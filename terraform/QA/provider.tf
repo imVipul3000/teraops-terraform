@@ -14,6 +14,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.30"  # Adjust based on stability
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"  # Correct source
+      version = "~> 4.0"  # Use the latest compatible version
+    }
   }
 }
 
