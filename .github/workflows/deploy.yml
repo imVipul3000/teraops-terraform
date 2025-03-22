@@ -67,6 +67,10 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::902712839429:role/aws-actions-github-poc
           aws-region: us-east-1
+          
+      - name: Terraform Init
+        working-directory: terraform/${{ env.TERRAFORM_DIR }}
+        run: terraform init
 
       - name: Terraform Apply
         working-directory: terraform/${{ env.TERRAFORM_DIR }}
