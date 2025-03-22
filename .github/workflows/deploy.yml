@@ -34,18 +34,18 @@ jobs:
         
       - name: Set Terraform Directory
         run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            echo "Manual trigger detected. Using input terraform_dir: ${{ inputs.terraform_dir }}"
-            echo "TERRAFORM_DIR=${{ inputs.terraform_dir }}" >> $GITHUB_ENV
+          if [[ "push" == "workflow_dispatch" ]]; then
+            echo "Manual trigger detected. Using input terraform_dir: "
+            echo "TERRAFORM_DIR=" >> $GITHUB_ENV
           else
-            PREVIOUS_COMMIT=$(git rev-parse --verify ${{ github.event.before }} 2>/dev/null || echo "HEAD~1")
-            CHANGED_DIRS=$(git diff --name-only $PREVIOUS_COMMIT ${{ github.sha }} | grep '^terraform/' | cut -d '/' -f2 | sort -u | uniq)
-      
+            PREVIOUS_COMMIT=$(git rev-parse HEAD~1)  # Get the previous commit in main
+            CHANGED_DIRS=$(git diff --name-only $PREVIOUS_COMMIT HEAD | grep '^terraform/' | cut -d '/' -f2 | sort -u | uniq)
+          
             if [ -z "$CHANGED_DIRS" ]; then
               echo "No Terraform directory changes detected. Skipping..."
               exit 1
             fi
-            
+          
             echo "Detected Terraform directory changes: $CHANGED_DIRS"
             echo "TERRAFORM_DIR=$CHANGED_DIRS" >> $GITHUB_ENV
           fi
