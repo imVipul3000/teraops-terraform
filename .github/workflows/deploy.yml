@@ -22,16 +22,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Detect Changed Terraform Directory
-        id: detect-dir
+      - name: Set Terraform Directory
         run: |
-          CHANGED_DIRS=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^terraform/' | cut -d '/' -f2 | sort -u | uniq)
-          if [ -z "$CHANGED_DIRS" ]; then
-            echo "No Terraform directory changes detected. Skipping..."
-            exit 1
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "Manual trigger detected. Using input terraform_dir: ${{ inputs.terraform_dir }}"
+            echo "TERRAFORM_DIR=${{ inputs.terraform_dir }}" >> $GITHUB_ENV
+          else
+            CHANGED_DIRS=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^terraform/' | cut -d '/' -f2 | sort -u | uniq)
+            if [ -z "$CHANGED_DIRS" ]; then
+              echo "No Terraform directory changes detected. Skipping..."
+              exit 1
+            fi
+            echo "Detected Terraform directory changes: $CHANGED_DIRS"
+            echo "TERRAFORM_DIR=$CHANGED_DIRS" >> $GITHUB_ENV
           fi
-          echo "Detected Terraform directory changes: $CHANGED_DIRS"
-          echo "TERRAFORM_DIR=$CHANGED_DIRS" >> $GITHUB_ENV  # Store in environment variable
 
       - name: Configure AWS-management Credentials 
         uses: aws-actions/configure-aws-credentials@v2
@@ -52,6 +56,7 @@ jobs:
 
   terraform-apply:
     needs: terraform-plan
+    if: github.event_name == 'workflow_dispatch'  # Run apply only on manual trigger
     runs-on: terraform-runner
     steps:
       - name: Checkout repository
@@ -65,5 +70,4 @@ jobs:
 
       - name: Terraform Apply
         working-directory: terraform/${{ env.TERRAFORM_DIR }}
-        run: terraform apply -auto-approve tfplan
-        if: github.event_name == 'workflow_dispatch'
+        run: terraform apply -auto-approve
