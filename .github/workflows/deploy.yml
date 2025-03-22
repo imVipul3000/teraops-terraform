@@ -24,9 +24,9 @@ jobs:
         
       - name: downloag terraform and awscli
         run: |
-          apt update
-          snap install terraform --classic
-          snap install aws-cli --classic
+          sudo apt update
+          sudo snap install terraform --classic
+          sudo snap install aws-cli --classic
         
       - name: Set Terraform Directory
         run: |
