@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   terraform-plan:
-    runs-on: teraform-runner
+    runs-on: terraform-runner
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
