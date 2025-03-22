@@ -21,7 +21,12 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::902712839429:role/aws-actions-github-poc
           aws-region: eu-west-1
-
+          
+      - name: goto location
+        run: |
+          ls -lrt
+          cd terraform/QA
+          
       - name: Terraform Init
         run: terraform init
 
