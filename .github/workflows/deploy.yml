@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   id-token: write
@@ -71,3 +72,4 @@ jobs:
       - name: Terraform Apply
         working-directory: terraform/${{ needs.terraform-plan.outputs.terraform_dir }}
         run: terraform apply -auto-approve tfplan
+        if: github.event_name == 'workflow_dispatch'
