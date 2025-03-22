@@ -27,7 +27,7 @@ variable "environment" {
 
 # Data source to get the existing group "TeraOps"
 data "aws_identitystore_group" "teraops" {
-  identity_store_id = var.identity_store_id
+  identity_store_id = "d-9067e9808e"
   display_name      = "TeraOps"
 }
 
