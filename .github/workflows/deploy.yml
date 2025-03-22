@@ -25,7 +25,7 @@ jobs:
             exit 1
           fi
           echo "Detected Terraform directory changes: $CHANGED_DIRS"
-          echo "TERRAFORM_DIR=$CHANGED_DIRS" >> $GITHUB_ENV  # Save the changed directory as env variable
+          echo "TERRAFORM_DIR=$CHANGED_DIRS" >> $GITHUB_ENV  # Store in environment variable
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -34,12 +34,12 @@ jobs:
           aws-region: eu-west-1
 
       - name: Verify Terraform Directory Exists
-        run: ls -R terraform/$TERRAFORM_DIR
+        run: ls -R terraform/${{ env.TERRAFORM_DIR }}
 
       - name: Terraform Init
+        working-directory: terraform/${{ env.TERRAFORM_DIR }}
         run: terraform init
-        working-directory: terraform/$TERRAFORM_DIR
 
       - name: Terraform Plan
+        working-directory: terraform/${{ env.TERRAFORM_DIR }}
         run: terraform plan
-        working-directory: terraform/$TERRAFORM_DIR
