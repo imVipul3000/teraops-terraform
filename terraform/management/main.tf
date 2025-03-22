@@ -33,7 +33,7 @@ data "aws_identitystore_group" "teraops" {
 
 # Create a new IAM Identity Center user
 resource "aws_identitystore_user" "new_user" {
-  identity_store_id = var.identity_store_id
+  identity_store_id = "d-9067e9808e"
   user_name        = "john.doe@example.com" # Change this to the user's email
   display_name     = "John Doe"
   
@@ -50,13 +50,8 @@ resource "aws_identitystore_user" "new_user" {
 
 # Add the user to the "TeraOps" group
 resource "aws_identitystore_group_membership" "user_membership" {
-  identity_store_id = var.identity_store_id
+  identity_store_id = "d-9067e9808e"
   group_id          = data.aws_identitystore_group.teraops.id
   member_id         = aws_identitystore_user.new_user.id
 }
 
-# Variable for Identity Store ID
-variable "identity_store_id" {
-  description = "The Identity Store ID for AWS IAM Identity Center"
-  type        = string
-}
