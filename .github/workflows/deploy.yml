@@ -26,12 +26,13 @@ jobs:
         run: |
           ls -lrt
           cd terraform/QA
+          ls -lrt
           
       - name: Terraform Init
         run: terraform init
 
       - name: Terraform Plan (IAM Identity Center)
-        run: terraform plan -target=module.iam_identity_center -out=iam_plan.tfplan
+        run: terraform plan
 
       - name: Configure AWS Credentials for AWS-2
         uses: aws-actions/configure-aws-credentials@v2
