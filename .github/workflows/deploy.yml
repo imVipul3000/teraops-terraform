@@ -26,6 +26,7 @@ jobs:
         run: |
           sudo apt update
           wget https://releases.hashicorp.com/terraform/1.11.1/terraform_1.11.1_linux_amd64.zip
+          unzip -o terraform_1.11.1_linux_amd64.zip
           terraform version
           sudo snap install aws-cli --classic
         
