@@ -65,6 +65,9 @@ jobs:
             exit 1
           fi
           
+      - name: pritning aws iam role
+        run: echo ${{ env.AWS_ROLE_ARN }}
+        
       - name: Configure AWS-management Credentials 
         uses: aws-actions/configure-aws-credentials@v2
         with:
