@@ -53,11 +53,22 @@ jobs:
             echo "Detected Terraform directory changes: $CHANGED_DIRS"
             echo "TERRAFORM_DIR=$CHANGED_DIRS" >> $GITHUB_ENV
           fi
+
+      - name: Determine AWS Role Dynamically
+        run: |
+          if [[ "$TERRAFORM_DIR" == "management" ]]; then
+            echo "AWS_ROLE_ARN=arn:aws:iam::902712839429:role/aws-actions-github-poc" >> $GITHUB_ENV
+          elif [[ "$TERRAFORM_DIR" == "QA" ]]; then
+            echo "AWS_ROLE_ARN=arn:aws:iam::896695270469:role/aws-actions-github-poc" >> $GITHUB_ENV
+          else
+            echo "Unknown TERRAFORM_DIR: $TERRAFORM_DIR"
+            exit 1
+          fi
           
       - name: Configure AWS-management Credentials 
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::902712839429:role/aws-actions-github-poc
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
           aws-region: us-east-1
 
       - name: Verify Terraform Directory Exists
