@@ -12,21 +12,20 @@ permissions:
 jobs:
   terraform-plan:
     runs-on: terraform-runner
-    if: contains(github.event.head_commit.modified, 'terraform/')  # Run only if Terraform directory is changed
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Detect Changed Directory
-        id: changed-dir
+      - name: Detect Changed Terraform Directory
+        id: detect-dir
         run: |
-          DIRS=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^terraform/' | cut -d '/' -f2 | sort -u)
-          if [ -z "$DIRS" ]; then
-            echo "No changes in Terraform directories. Skipping..."
+          CHANGED_DIRS=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^terraform/' | cut -d '/' -f2 | sort -u | uniq)
+          if [ -z "$CHANGED_DIRS" ]; then
+            echo "No Terraform directory changes detected. Skipping..."
             exit 1
           fi
-          echo "Detected Terraform directories changed: $DIRS"
-          echo "TERRAFORM_DIR=$(echo $DIRS | head -n 1)" >> $GITHUB_ENV  # Pick the first changed dir
+          echo "Detected Terraform directory changes: $CHANGED_DIRS"
+          echo "TERRAFORM_DIR=$CHANGED_DIRS" >> $GITHUB_ENV  # Save the changed directory as env variable
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -34,7 +33,7 @@ jobs:
           role-to-assume: arn:aws:iam::902712839429:role/aws-actions-github-poc
           aws-region: eu-west-1
 
-      - name: Verify Terraform Directory
+      - name: Verify Terraform Directory Exists
         run: ls -R terraform/$TERRAFORM_DIR
 
       - name: Terraform Init
