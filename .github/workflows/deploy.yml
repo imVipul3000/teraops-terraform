@@ -50,18 +50,8 @@ jobs:
         working-directory: terraform/${{ env.TERRAFORM_DIR }}
         run: terraform plan
 
-  manual-approval:
-    needs: terraform-plan
-    runs-on: ubuntu-latest
-    steps:
-      - name: Wait for Manual Approval
-        uses: hmarr/auto-approve-action@v3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-        env:
-          GITHUB_ACTIONS_MANUAL_APPROVAL: "true"
-
   terraform-apply:
+    needs: terraform-plan
     runs-on: terraform-runner
     steps:
       - name: Checkout repository
