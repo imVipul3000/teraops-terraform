@@ -4,7 +4,12 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+  workflow_dispatch:  # Allows manual trigger for terraform apply
+    inputs:
+      terraform_dir:
+        description: "Terraform working directory (e.g., QA, Prod, management)"
+        required: true
+        type: string
 
 permissions:
   id-token: write
@@ -57,7 +62,6 @@ jobs:
           GITHUB_ACTIONS_MANUAL_APPROVAL: "true"
 
   terraform-apply:
-    needs: manual-approval
     runs-on: terraform-runner
     steps:
       - name: Checkout repository
@@ -70,6 +74,6 @@ jobs:
           aws-region: us-east-1
 
       - name: Terraform Apply
-        working-directory: terraform/${{ needs.terraform-plan.outputs.terraform_dir }}
+        working-directory: terraform/${{ env.TERRAFORM_DIR }}
         run: terraform apply -auto-approve tfplan
         if: github.event_name == 'workflow_dispatch'
