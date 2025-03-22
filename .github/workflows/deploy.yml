@@ -19,8 +19,6 @@ jobs:
   terraform-plan:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
         
       - name: downloag terraform and awscli
         run: |
@@ -31,6 +29,9 @@ jobs:
           sudo mv terraform /usr/local/bin/
           terraform version
           sudo snap install aws-cli --classic
+          
+      - name: Checkout repository
+        uses: actions/checkout@v4
         
       - name: Set Terraform Directory
         run: |
