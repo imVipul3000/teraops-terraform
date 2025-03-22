@@ -61,6 +61,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set Terraform Directory
+        run: |
+          echo "TERRAFORM_DIR=${{ inputs.terraform_dir }}" >> $GITHUB_ENV
+
       - name: Configure AWS-management Credentials 
         uses: aws-actions/configure-aws-credentials@v2
         with:
