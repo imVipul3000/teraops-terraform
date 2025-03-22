@@ -30,9 +30,11 @@ jobs:
           
       - name: Terraform Init
         run: terraform init
+        working-directory: terraform/QA
 
       - name: Terraform Plan (IAM Identity Center)
         run: terraform plan
+        working-directory: terraform/QA
 
       - name: Configure AWS Credentials for AWS-2
         uses: aws-actions/configure-aws-credentials@v2
