@@ -43,3 +43,31 @@ jobs:
       - name: Terraform Plan
         working-directory: terraform/${{ env.TERRAFORM_DIR }}
         run: terraform plan
+
+  manual-approval:
+    needs: terraform-plan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for Manual Approval
+        uses: hmarr/auto-approve-action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_ACTIONS_MANUAL_APPROVAL: "true"
+
+  terraform-apply:
+    needs: manual-approval
+    runs-on: terraform-runner
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS-management Credentials 
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::902712839429:role/aws-actions-github-poc
+          aws-region: us-east-1
+
+      - name: Terraform Apply
+        working-directory: terraform/${{ needs.terraform-plan.outputs.terraform_dir }}
+        run: terraform apply -auto-approve tfplan
