@@ -56,7 +56,7 @@ resource "aws_identitystore_user" "new_user" {
 resource "aws_identitystore_group_membership" "user_membership" {
   identity_store_id = var.identity_store_id
   group_id          = data.aws_identitystore_group.teraops.id
-  member_id         = aws_identitystore_user.new_user.id
+  member_id         = split("/", aws_identitystore_user.new_user.id)[1]
 }
 
 # Variable for Identity Store ID
