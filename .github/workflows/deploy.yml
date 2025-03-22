@@ -17,11 +17,17 @@ permissions:
 
 jobs:
   terraform-plan:
-    runs-on: terraform-runner
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
+        
+      - name: downloag terraform and awscli
+        run: |
+          apt update
+          snap install terraform --classic
+          snap install aws-cli --classic
+        
       - name: Set Terraform Directory
         run: |
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
