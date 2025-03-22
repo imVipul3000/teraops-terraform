@@ -60,7 +60,9 @@ jobs:
           aws-region: us-east-1
 
       - name: Verify Terraform Directory Exists
-        run: ls -R terraform/${{ env.TERRAFORM_DIR }}
+        run: |
+          ls -lrt
+          ls -R terraform/${{ env.TERRAFORM_DIR }}
 
       - name: Terraform Init
         working-directory: terraform/${{ env.TERRAFORM_DIR }}
