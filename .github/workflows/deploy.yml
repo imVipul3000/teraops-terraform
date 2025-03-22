@@ -25,7 +25,10 @@ jobs:
       - name: downloag terraform and awscli
         run: |
           sudo apt update
-          sudo snap install terraform --classic
+          wget https://releases.hashicorp.com/terraform/1.11.1/terraform_1.11.1_linux_amd64.zip
+          unzip terraform_1.11.1_linux_amd64.zip
+          sudo mv terraform /usr/local/bin/
+          terraform version
           sudo snap install aws-cli --classic
         
       - name: Set Terraform Directory
@@ -34,11 +37,14 @@ jobs:
             echo "Manual trigger detected. Using input terraform_dir: ${{ inputs.terraform_dir }}"
             echo "TERRAFORM_DIR=${{ inputs.terraform_dir }}" >> $GITHUB_ENV
           else
-            CHANGED_DIRS=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^terraform/' | cut -d '/' -f2 | sort -u | uniq)
+            PREVIOUS_COMMIT=$(git rev-parse --verify ${{ github.event.before }} 2>/dev/null || echo "HEAD~1")
+            CHANGED_DIRS=$(git diff --name-only $PREVIOUS_COMMIT ${{ github.sha }} | grep '^terraform/' | cut -d '/' -f2 | sort -u | uniq)
+      
             if [ -z "$CHANGED_DIRS" ]; then
               echo "No Terraform directory changes detected. Skipping..."
               exit 1
             fi
+            
             echo "Detected Terraform directory changes: $CHANGED_DIRS"
             echo "TERRAFORM_DIR=$CHANGED_DIRS" >> $GITHUB_ENV
           fi
