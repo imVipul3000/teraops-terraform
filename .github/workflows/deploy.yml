@@ -38,7 +38,10 @@ jobs:
             echo "Manual trigger detected. Using input terraform_dir: "
             echo "TERRAFORM_DIR=" >> $GITHUB_ENV
           else
-            PREVIOUS_COMMIT=$(git rev-parse HEAD~1)  # Get the previous commit in main
+            # Ensure we have enough history for diff
+            git fetch --unshallow || git fetch --all --tags
+          
+            PREVIOUS_COMMIT=$(git rev-parse HEAD~1 2>/dev/null || echo "HEAD")
             CHANGED_DIRS=$(git diff --name-only $PREVIOUS_COMMIT HEAD | grep '^terraform/' | cut -d '/' -f2 | sort -u | uniq)
           
             if [ -z "$CHANGED_DIRS" ]; then
@@ -49,7 +52,7 @@ jobs:
             echo "Detected Terraform directory changes: $CHANGED_DIRS"
             echo "TERRAFORM_DIR=$CHANGED_DIRS" >> $GITHUB_ENV
           fi
-
+          
       - name: Configure AWS-management Credentials 
         uses: aws-actions/configure-aws-credentials@v2
         with:
