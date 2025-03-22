@@ -2,7 +2,7 @@ terraform {
   required_version = "~> 1.11"
 
   backend "s3" {
-    bucket         = "teraops-terraform-poc"
+    bucket         = "terraform-poc-teraops"
     key            = "QA/terraform.tfstate"
     region         = "us-east-1"
     use_lockfile   = true
