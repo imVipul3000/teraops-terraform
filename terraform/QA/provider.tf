@@ -17,7 +17,7 @@ terraform {
    /* cloudflare = {
       source  = "cloudflare/cloudflare"  # Correct source
       version = "~> 4.0"  # Use the latest compatible version
-    } */
+    }  */
   }
 }
 
