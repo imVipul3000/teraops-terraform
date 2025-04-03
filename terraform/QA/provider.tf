@@ -34,9 +34,9 @@ provider "kubernetes" {
 }
 
 provider "kubectl" {
-  host                   = module.eks.endpoint
+  host                   = module.eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
   token                  = data.aws_eks_cluster_auth.cluster.token
-  cluster_ca_certificate = base64decode(module.eks.certificate_authority[0].data)
 }
 
 variable "environment" {
