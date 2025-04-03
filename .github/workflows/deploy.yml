@@ -71,15 +71,14 @@ jobs:
 
       - name: Verify Terraform Directory Exists
         run: |
-          ls -lrt
           ls -R terraform/${{ env.TERRAFORM_DIR }}
 
       - name: Terraform Init
-        working-directory: terraform/${{ env.TERRAFORM_DIR }}
+        working-directory: terraform/QA
         run: terraform init
 
       - name: Terraform Plan
-        working-directory: terraform/${{ env.TERRAFORM_DIR }}
+        working-directory: terraform/QA
         run: terraform plan
 
   terraform-apply:
