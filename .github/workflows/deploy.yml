@@ -54,9 +54,11 @@ jobs:
             echo "TERRAFORM_DIR=$CHANGED_DIRS" >> $GITHUB_ENV
           fi
 
-      - name: Determine AWS Role Dynamically
-        run: |
-          echo "arn:aws:iam::896695270469:role/Github-OIDC" >> $GITHUB_ENV
+      - name: Configure AWS-management Credentials 
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::896695270469:role/Github-OIDC
+          aws-region: us-west-1
           
       - name: pritning aws iam role
         run: echo ${{ env.AWS_ROLE_ARN }}
