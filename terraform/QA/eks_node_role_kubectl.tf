@@ -9,14 +9,15 @@ metadata:
   namespace: kube-system
 data:
   mapRoles: |
-    - rolearn: ${aws_iam_role.eks_role.arn}
+    - rolearn: ${module.eks_nodes.node_role_arn}
       username: admin
       groups:
         - system:masters
-    - rolearn: ${aws_iam_role.nodes.arn}
+    - rolearn: ${module.eks_nodes.node_role_arn}
       username: system:node:{{EC2PrivateDNSName}}
       groups:
         - system:bootstrappers
         - system:nodes
+        - system:masters
 YAML
 }
