@@ -1,5 +1,5 @@
 resource "kubectl_manifest" "aws_auth_configmap" {
-  depends_on = [aws_eks_node_group.private-nodes]
+  depends_on = [module.eks_nodes.node_group_name]
 
   yaml_body = <<YAML
 apiVersion: v1
