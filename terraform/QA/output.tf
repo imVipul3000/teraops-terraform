@@ -3,19 +3,19 @@ output "vpc_id" {
 }
 
 output "subnet_private_1_id" {
-  value = module.subnet.private_us_east_1a
+  value = module.subnet.private_1
 }
 
 output "subnet_private_2_id" {
-  value = module.subnet.private_us_east_1b
+  value = module.subnet.private_2
 }
 
 output "subnet_public_1_id" {
-  value = module.subnet.public_us_east_1a
+  value = module.subnet.public_1
 }
 
 output "subnet_public_2_id" {
-  value = module.subnet.public_us_east_1b
+  value = module.subnet.public_2
 }
 
 output "ig_id" {

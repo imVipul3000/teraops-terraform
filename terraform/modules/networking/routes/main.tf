@@ -21,7 +21,7 @@ resource "aws_route_table" "private" {
   ]
 
   tags = {
-    Name = "private-teraops-${var.environment}"
+    Name = "private-latitude-${var.environment}"
   }
 }
 
@@ -48,26 +48,26 @@ resource "aws_route_table" "public" {
   ]
 
   tags = {
-    Name = "public-teraops-${var.environment}"
+    Name = "public-latitude-${var.environment}"
   }
 }
 
-resource "aws_route_table_association" "private-us-east-1a" {
-  subnet_id      = var.subnet_private_us_east_1a
+resource "aws_route_table_association" "private-1" {
+  subnet_id      = var.subnet_private_1
   route_table_id = aws_route_table.private.id
 }
 
-resource "aws_route_table_association" "private-us-east-1b" {
-  subnet_id      = var.subnet_private_us_east_1b
+resource "aws_route_table_association" "private-2" {
+  subnet_id      = var.subnet_private_2
   route_table_id = aws_route_table.private.id
 }
 
-resource "aws_route_table_association" "public-us-east-1a" {
-  subnet_id      = var.subnet_public_us_east_1a
+resource "aws_route_table_association" "public-1" {
+  subnet_id      = var.subnet_public_1
   route_table_id = aws_route_table.public.id
 }
 
-resource "aws_route_table_association" "public-us-east-1b" {
-  subnet_id      = var.subnet_public_us_east_1b
+resource "aws_route_table_association" "public-2" {
+  subnet_id      = var.subnet_public_2
   route_table_id = aws_route_table.public.id
 }

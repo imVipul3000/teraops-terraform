@@ -1,4 +1,4 @@
 module "ecr" {
   source = "../modules/ecr"
-  ecr_repo = "teraops-terraform-poc"
+  ecr_repo = "latitude-staging-sandbox"
 }

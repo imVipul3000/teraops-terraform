@@ -8,9 +8,9 @@ resource "aws_eip" "nat" {
 
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat.id
-  subnet_id     = var.subnet_public_us_east_1a
+  subnet_id     = var.subnet_public_1
 
   tags = {
-    Name = "nat-teraops-${var.environment}"
+    Name = "nat-latitude-${var.environment}"
   }
 }

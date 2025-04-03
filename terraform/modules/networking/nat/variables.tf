@@ -1,3 +1,3 @@
-variable "subnet_public_us_east_1a" {
+variable "subnet_public_1" {
 }
 variable "environment" {}

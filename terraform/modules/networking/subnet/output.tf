@@ -1,12 +1,12 @@
-output "private_us_east_1a" {
-  value = aws_subnet.private_us_east_1a.id
+output "private_1" {
+  value = aws_subnet.private_1.id
 }
-output "private_us_east_1b" {
-  value = aws_subnet.private_us_east_1b.id
+output "private_2" {
+  value = aws_subnet.private_2.id
 }
-output "public_us_east_1a" {
-  value = aws_subnet.public_us_east_1a.id
+output "public_1" {
+  value = aws_subnet.public_1.id
 }
-output "public_us_east_1b" {
-  value = aws_subnet.public_us_east_1b.id
+output "public_2" {
+  value = aws_subnet.public_2.id
 }

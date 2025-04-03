@@ -3,8 +3,8 @@ terraform {
 
   backend "s3" {
     bucket         = "terraform-poc-teraops-qa"
-    key            = "QA/terraform.tfstate"
-    region         = "us-east-1"
+    key            = "staging-sandbox/terraform.tfstate"
+    region         = "us-west-1"
     use_lockfile   = true
     encrypt        = true
   }
@@ -22,5 +22,5 @@ terraform {
 }
 
 variable "environment" {
-  default = "qa"
+  default = "staging-sandbox"
 }

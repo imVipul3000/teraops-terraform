@@ -1,6 +1,7 @@
 variable "eks_cluster_name"{}
-variable "subnet_private_us_east_1a"{}
-variable "subnet_private_us_east_1b"{}
-variable "subnet_public_us_east_1a"{}
-variable "subnet_public_us_east_1b"{}
+variable "eks_version"{}
+variable "subnet_private_1"{}
+variable "subnet_private_2"{}
+variable "subnet_public_1"{}
+variable "subnet_public_2"{}
 variable "environment" {}

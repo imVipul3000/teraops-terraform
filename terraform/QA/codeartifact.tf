@@ -1,5 +1,5 @@
-module "codeartifact" {
-    source = "../modules/codeartifact"
-    domain = "teraops-poc-domain"
-    repository = "teraops-poc-repository"
-}
+#module "codeartifact" {
+#    source = "../modules/codeartifact"
+#    domain = "latitude-domain-staging-sandbox"
+#    repository = "latitude-repository-staging-sandbox"
+#}
