@@ -34,3 +34,7 @@ provider "kubectl" {
   token                  = data.aws_eks_cluster_auth.cluster.token
   cluster_ca_certificate = base64decode(aws_eks_cluster.EKS.certificate_authority[0].data)
 }
+
+variable "environment" {
+  default = "staging-sandbox"
+}
