@@ -4,7 +4,7 @@ terraform {
   backend "s3" {
     bucket         = "terraform-poc-teraops-qa"
     key            = "staging-sandbox/terraform.tfstate"
-    region         = "us-west-1"
+    region         = "us-east-1"
     use_lockfile   = true
     encrypt        = true
   }
